@@ -2,5 +2,6 @@
 
 Server Side application of Shared Tracking project.
 
-Deployed on a Tomcat 7 + MySQL Database.
+Application running on Tomcat 7 + MySQL Database.
 
+Server deployed on a free account of Openshift Cluster.

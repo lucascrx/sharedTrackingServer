@@ -28,7 +28,7 @@ import response.CreationResponse;
 
 //Sets the path to base URL 
 @Path(Constants.CREATE_PREPARED_SESSION_PATH)
-public class PreparedCreationService{
+public class PreparedCreationService2 {
 	
 	private final String logTag = "Jersey.PreparedCreation : ";
 
@@ -41,13 +41,14 @@ public class PreparedCreationService{
 	  }
 	  
 	  
-	  /**Prepares Session Creation Service to start a new tracking session quickly
-	   * providing a guidance name and a sampling rate, and dates*/   
+	  /**Immediate Session Creation Service to start a new tracking session quickly
+	   * providing a guidance name and a sampling rate*/   
 	  @POST
 	  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	  @Produces(MediaType.APPLICATION_JSON)
 	  public CreationResponse createSession(
 		      @FormParam(Constants.POST_PARAM_LABEL_SESSION_NAME) String name,
+		      @FormParam(Constants.POST_PARAM_LABEL_PUBLIC_ID) String publicID,
 		      @FormParam(Constants.POST_PARAM_LABEL_PASSWORD) String password,
 		      @FormParam(Constants.POST_PARAM_LABEL_UPLOAD_RATE) Integer rate,
 		      @FormParam(Constants.POST_PARAM_LABEL_STARTING_TIME) String start,
@@ -58,7 +59,7 @@ public class PreparedCreationService{
 		  System.out.println(header);
 		  //asking Manager for processing
 		  SampleManager manager = SampleManager.INSTANCE;
-		  CreationResponse response = manager.createNewSession(name, password,rate,start,end);
+		  CreationResponse response = manager.createNewSession(name, publicID, password,rate,start,end);
 		  System.out.println(logTag+"Prepared Session Creation Result Formatted");
 		  //returning obtained result
 		  return response;

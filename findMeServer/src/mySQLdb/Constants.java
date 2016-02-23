@@ -14,15 +14,15 @@ public class Constants {
 	public static final int TRACKING_STATUS_CLOSED = 3;
 	
 	/**Database Access Setting*/
-	public static final String dbManagerUsername = "******";
+	public static final String dbManagerUsername = "tomcat";
 	//public static final String dbManagerPassword = "pwd_tomcat";
-	public static final String dbManagerPassword = "******";
+	public static final String dbManagerPassword = "Shared16Tr26acking36";
 	//public static final String dbHost = "localhost";
 	public static final String dbHost = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
 	//public static final String dbPort = "3307";
 	public static final String dbPort = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
 	//public static final String dbURL = "jdbc:mysql://"+dbHost+":"+dbPort+"/guidance";
-	public static final String dbURL = "******";
+	public static final String dbURL = "jdbc:mysql://"+dbHost+":"+dbPort+"/sharedtracking?autoReconnect=true";
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	
 	/**Main Table information*/

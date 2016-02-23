@@ -68,7 +68,7 @@ public enum SampleManager {
 	/**create a new tracking session in prepared mode, the public ID and the password
 	 * are provided. A new session is created with initialized status.
 	 * @return the privateID of the created session, and null if the creation has failed*/
-	public CreationResponse createNewSession(String sessionName,String publicID,String password, Integer rate,
+	public CreationResponse createNewSession(String sessionName, String password, Integer rate,
 			String start, String end ){
 		CreationResponse response = new CreationResponse();
 		try {
@@ -77,7 +77,6 @@ public enum SampleManager {
 			
 			//input sanitization
 			Sanitizer.sanitizeStringAsName(sessionName);
-			Sanitizer.sanitizeStringAsToken(publicID);
 			Sanitizer.sanitizeStringAsPassword(password);
 			Sanitizer.sanitizeUploadRate(rate);
 			Timestamp startTime = Sanitizer.sanitizeStartTimeAlone(start);
@@ -87,14 +86,15 @@ public enum SampleManager {
 			}
 						
 			//generate guidance private ID : random token
+			String publicToken = this.generator.randomString();
 			String privateToken = this.generator.randomString();
 			//generating current time for lastmodiftime
 			java.util.Date date= new java.util.Date();
 			Timestamp now = new Timestamp(date.getTime());
 			//creating new session in the database
-			this.dbAccesser.createNewGuidance(publicID, privateToken, sessionName, password,(int) rate, startTime,endTime,now);
+			this.dbAccesser.createNewGuidance(publicToken, privateToken, sessionName, password,(int) rate, startTime,endTime,now);
 			//generating response for client
-			response = new CreationResponse(true,sessionName,rate,publicID,privateToken,startTime,endTime,now);
+			response = new CreationResponse(true,sessionName,rate,publicToken,privateToken,startTime,endTime,now);
 			System.out.println(logTag+"New session creation Success : new row inserted + new session table created");
 		} catch (SQLException e) {
 			System.out.println(logTag+"New session creation database manipulation error : "+e.getMessage());
